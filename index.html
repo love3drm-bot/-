@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5b4d0">
+<meta name="description" content="PINK DIARY - 勉強と運動をかわいく管理する毎日用タスクアプリ">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<title>PINK DIARY ♡</title>
+<style>
+:root{color-scheme:light;--pink:#f3a9c8;--hot:#d95791;--ink:#28151f;--muted:#9b7889;--line:#f0dce6;--paper:#fffafd;--soft:#fff0f6}
+*{box-sizing:border-box}body{margin:0;background:#fff7fb;color:var(--ink);font-family:ui-rounded,"Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.wrap{max-width:760px;margin:auto;padding:18px 16px 40px}
+.hero{position:relative;overflow:hidden;border:1px solid #eaa0bf;border-radius:25px;padding:22px;background:linear-gradient(140deg,#ffd8e8,#f2a8c8);box-shadow:0 9px 24px #d957911c}
+.hero:before{content:"୨୧";position:absolute;right:18px;top:5px;font-size:56px;color:#28151f;opacity:.85}.hero:after{content:"♥　✧";position:absolute;right:20px;bottom:18px;font-size:20px;color:#28151f}
+.eyebrow{font-size:11px;letter-spacing:.2em;font-weight:900}.brand{font-size:29px;font-weight:1000;letter-spacing:.08em;margin:5px 0}.tag{font-size:12px;color:#754457;font-weight:700}.progressrow{display:flex;justify-content:space-between;align-items:end;margin-top:26px;position:relative;z-index:1}.percent{font-size:52px;line-height:1;font-weight:1000;letter-spacing:-.05em}.progress{height:11px;border-radius:20px;background:#ffffffa8;overflow:hidden;margin-top:13px}.progress>div{height:100%;width:0;background:var(--ink);border-radius:20px;transition:width .2s}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.stat,.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 4px 14px #a74d7410}.stat{text-align:center}.stat .emoji{font-size:20px}.stat strong{display:block;font-size:23px;margin:2px}.stat small{font-size:11px;color:var(--muted);font-weight:700}
+.tabs{display:flex;gap:8px;margin:16px 0}.tab{flex:1;border:1px solid var(--line);background:white;color:var(--ink);border-radius:12px;padding:11px 5px;font-size:12px;font-weight:900}.tab.active{background:var(--ink);color:white;border-color:var(--ink)}
+.panel{margin-bottom:13px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.panelhead b,.sectiontitle{font-size:14px;letter-spacing:.03em}.pill{background:var(--soft);color:#a43e70;border-radius:20px;padding:5px 9px;font-size:10px;font-weight:900}
+.filters{display:flex;gap:7px;margin-bottom:12px}.filter{border:1px solid var(--line);background:#fff8fb;border-radius:20px;padding:7px 12px;font-size:11px;font-weight:800;color:var(--ink)}.filter.active{background:#f5bfd6;border-color:#f5bfd6}
+.progresscaption{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin:0 0 7px}.progress.thin{height:8px;background:#f5e5ed;margin:0 0 8px}.progress.thin>div{background:linear-gradient(90deg,#f5b6d0,#d95791)}
+.task{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #f5eaf0}.task:last-child{border:0}.check{width:24px;height:24px;flex:0 0 24px;border:2px solid #df8db1;border-radius:8px;background:white;color:white;font-weight:900}.check.done{background:var(--ink);border-color:var(--ink)}.taskmain{flex:1;min-width:0}.taskname{font-size:13px;font-weight:800;overflow-wrap:anywhere}.taskmeta{font-size:10px;color:var(--muted);margin-top:3px}.completed .taskname{text-decoration:line-through;opacity:.45}.delete{border:0;background:transparent;color:#cc7298;font-size:11px;padding:6px}
+.empty{text-align:center;color:var(--muted);font-size:12px;padding:22px 5px;line-height:1.9}
+label{display:block;font-size:11px;color:var(--muted);font-weight:800;margin:10px 0 5px}input{width:100%;border:1px solid var(--line);background:#fffafd;border-radius:11px;padding:11px;color:var(--ink);min-width:0}input:focus{outline:2px solid #f2b5cf;border-color:transparent}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}.catbuttons{display:flex;gap:8px;margin:12px 0}.catbuttons button{flex:1;padding:10px;border-radius:11px;border:1px solid var(--line);background:white;font-size:12px;font-weight:900}.catbuttons button.active{background:var(--soft);border-color:#e9a2c1;color:#9d3d6c}.primary{width:100%;border:0;border-radius:12px;background:var(--ink);color:white;padding:12px;font-weight:900;margin-top:13px}.view{display:none}.view.active{display:block}.scheduleitem{display:grid;grid-template-columns:76px 1fr auto;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #f5eaf0;font-size:12px}.time{font-weight:900;color:#b34d7c}.streakcards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.streakcard{background:var(--soft);border:1px solid #f3d5e3;border-radius:15px;padding:15px}.streakcard strong{font-size:34px;display:block}.historyrow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f5eaf0;font-size:12px}.note{font-size:10px;color:var(--muted);line-height:1.7}.footer{text-align:center;color:#b38b9e;font-size:10px;letter-spacing:.15em;padding:16px}
+.install{display:none;border:1px solid #e8b2ca;background:#fff0f6;color:#8e345f;border-radius:12px;padding:10px 12px;font-size:11px;font-weight:900;width:100%;margin-top:10px}
+@media(min-width:600px){.wrap{padding-top:28px}.hero{padding:28px}.percent{font-size:60px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero">
+ <div class="eyebrow">♡ MY SPECIAL DAILY DIARY ♡</div>
+ <div class="brand">PINK DIARY</div><div class="tag">~ become my ideal self ~</div>
+ <div class="progressrow"><div><div class="eyebrow">TODAY'S ACHIEVEMENT ♡</div><div class="percent" id="percent">0%</div></div><div style="text-align:right;font-size:12px;font-weight:900;line-height:1.9">୨୧<br>YOU CAN DO IT!<br>✧ ♥ ✧</div></div>
+ <div class="progress"><div id="heroBar"></div></div>
+</header>
+<div class="stats">
+ <div class="stat"><div class="emoji">📚</div><strong id="studyTotal">0</strong><small>勉強 TASKS</small></div>
+ <div class="stat"><div class="emoji">🎀</div><strong id="exerciseTotal">0</strong><small>運動 TASKS</small></div>
+ <div class="stat"><div class="emoji">♥</div><strong id="doneTotal">0</strong><small>COMPLETED</small></div>
+</div>
+<nav class="tabs"><button class="tab active" data-view="tasks">♡ TODAY</button><button class="tab" data-view="schedule">✧ PLAN</button><button class="tab" data-view="streak">♥ STREAK</button></nav>
+<section class="view active" id="tasksView">
+ <div class="panel">
+  <div class="panelhead"><b>♡ TODAY'S CHECKLIST</b><span class="pill" id="dateLabel"></span></div>
+  <div class="filters"><button class="filter active" data-filter="all">ALL</button><button class="filter" data-filter="勉強">📚 勉強</button><button class="filter" data-filter="運動">🎀 運動</button></div>
+  <div class="progresscaption"><span>今日の達成率</span><b id="countLabel">0 / 0</b></div><div class="progress thin"><div id="taskBar"></div></div>
+  <div id="taskList"></div><div class="empty" id="taskEmpty">♡ まだタスクがないよ ♡<br>今日の目標を登録してね！</div>
+ </div>
+ <div class="panel">
+  <div class="sectiontitle">＋ ADD NEW TASK ୨୧</div>
+  <div class="catbuttons"><button class="active" data-cat="勉強">📚 勉強</button><button data-cat="運動">🎀 運動</button></div>
+  <label for="taskName">やること</label><input id="taskName" placeholder="例：英単語を30個覚える">
+  <div class="grid2"><div><label for="taskStart">開始時間</label><input type="time" id="taskStart"></div><div><label for="taskEnd">終了時間</label><input type="time" id="taskEnd"></div></div>
+  <button class="primary" id="addTask">♡ タスクを追加する</button>
+ </div>
+</section>
+<section class="view" id="scheduleView">
+ <div class="panel"><div class="panelhead"><b>✧ MY STUDY PLAN</b><span class="pill">TODAY</span></div><div id="scheduleList"></div><div class="empty" id="scheduleEmpty">予定を追加してね ♡</div></div>
+ <div class="panel"><div class="sectiontitle">＋ ADD SCHEDULE</div><label for="scheduleName">勉強内容</label><input id="scheduleName" placeholder="例：数学Ⅱ 指数・対数"><div class="grid2"><div><label for="scheduleStart">開始</label><input type="time" id="scheduleStart"></div><div><label for="scheduleEnd">終了</label><input type="time" id="scheduleEnd"></div></div><button class="primary" id="addSchedule">予定を追加 ♡</button></div>
+</section>
+<section class="view" id="streakView">
+ <div class="panel"><div class="sectiontitle">♥ CONTINUITY DAYS</div><div class="streakcards" style="margin-top:13px"><div class="streakcard"><div>📚</div><strong id="studyStreak">0</strong><b style="font-size:11px">勉強 継続日数</b><div class="note">DAY STREAK</div></div><div class="streakcard"><div>🎀</div><strong id="exerciseStreak">0</strong><b style="font-size:11px">運動 継続日数</b><div class="note">DAY STREAK</div></div></div></div>
+ <div class="panel"><div class="sectiontitle">♡ ACTIVITY HISTORY</div><div id="history" style="margin-top:8px"></div></div>
+ <p class="note">※その日に該当ジャンルのタスクを1つ以上完了すると継続日数にカウントされるよ。</p>
+</section>
+<button class="install" id="installButton">♡ ホーム画面に追加する</button>
+<div class="footer">♡ ୨୧ LOVE YOURSELF ୨୧ ♡</div>
+</main>
+<script>
+(()=>{
+const $=id=>document.getElementById(id),KEY='pink-diary-personal-v1';
+let db={days:{},schedules:{}},category='勉強',filter='all',deferredPrompt=null;
+try{db=JSON.parse(localStorage.getItem(KEY))||db}catch(e){}
+const date=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const today=date(),tasks=()=>db.days[today]||(db.days[today]=[]),schedules=()=>db.schedules[today]||(db.schedules[today]=[]);
+const save=()=>localStorage.setItem(KEY,JSON.stringify(db));
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('dateLabel').textContent=today;
+function render(){
+ const a=tasks(),done=a.filter(x=>x.done).length,p=a.length?Math.round(done/a.length*100):0;
+ $('percent').textContent=p+'%';$('heroBar').style.width=p+'%';$('taskBar').style.width=p+'%';$('countLabel').textContent=done+' / '+a.length;
+ $('studyTotal').textContent=a.filter(x=>x.cat==='勉強').length;$('exerciseTotal').textContent=a.filter(x=>x.cat==='運動').length;$('doneTotal').textContent=done;
+ const list=a.filter(x=>filter==='all'||x.cat===filter);
+ $('taskList').innerHTML=list.map(x=>`<div class="task ${x.done?'completed':''}"><button class="check ${x.done?'done':''}" data-check="${x.id}">${x.done?'✓':''}</button><div class="taskmain"><div class="taskname">${esc(x.name)}</div><div class="taskmeta">${x.cat==='勉強'?'📚 勉強':'🎀 運動'}${x.start?' · '+esc(x.start):''}${x.end?' – '+esc(x.end):''}</div></div><button class="delete" data-delete="${x.id}">削除</button></div>`).join('');
+ $('taskEmpty').style.display=list.length?'none':'block';renderSchedule();renderStreak();
+}
+function renderSchedule(){const a=schedules().slice().sort((x,y)=>x.start.localeCompare(y.start));$('scheduleList').innerHTML=a.map(x=>`<div class="scheduleitem"><div class="time">${esc(x.start)}<br>${esc(x.end||'')}</div><div style="font-weight:800">${esc(x.name)}</div><button class="delete" data-sdelete="${x.id}">削除</button></div>`).join('');$('scheduleEmpty').style.display=a.length?'none':'block'}
+function streak(cat){let d=new Date(),n=0,key=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');if(!(db.days[key(d)]||[]).some(t=>t.cat===cat&&t.done))d.setDate(d.getDate()-1);for(let i=0;i<500;i++){if((db.days[key(d)]||[]).some(t=>t.cat===cat&&t.done)){n++;d.setDate(d.getDate()-1)}else break}return n}
+function renderStreak(){$('studyStreak').textContent=streak('勉強');$('exerciseStreak').textContent=streak('運動');const ds=Object.keys(db.days).sort().reverse().slice(0,14);$('history').innerHTML=ds.length?ds.map(d=>`<div class="historyrow"><span>${d}</span><b>${db.days[d].filter(x=>x.done).length}/${db.days[d].length} 完了</b></div>`).join(''):'<div class="empty">記録はまだないよ ♡</div>'}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));$(b.dataset.view+'View').classList.add('active')}));
+document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(x=>x.classList.toggle('active',x===b));render()}));
+document.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.cat;document.querySelectorAll('[data-cat]').forEach(x=>x.classList.toggle('active',x===b))}));
+$('addTask').onclick=()=>{const name=$('taskName').value.trim();if(!name){$('taskName').focus();return}tasks().push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name,cat:category,start:$('taskStart').value,end:$('taskEnd').value,done:false});$('taskName').value='';$('taskStart').value='';$('taskEnd').value='';save();render()};
+$('addSchedule').onclick=()=>{const name=$('scheduleName').value.trim(),start=$('scheduleStart').value,end=$('scheduleEnd').value;if(!name||!start){$('scheduleName').focus();return}schedules().push({id:String(Date.now()),name,start,end});$('scheduleName').value='';$('scheduleStart').value='';$('scheduleEnd').value='';save();renderSchedule()};
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.check){const t=tasks().find(x=>x.id===b.dataset.check);if(t)t.done=!t.done;save();render()}if(b.dataset.delete){db.days[today]=tasks().filter(x=>x.id!==b.dataset.delete);save();render()}if(b.dataset.sdelete){db.schedules[today]=schedules().filter(x=>x.id!==b.dataset.sdelete);save();renderSchedule()}});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installButton').style.display='block'});
+$('installButton').onclick=async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;$('installButton').style.display='none'}else alert('ブラウザの共有メニューまたはメニューから「ホーム画面に追加」を選んでね ♡')};
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+render();
+})();
+</script>
+</body></html>
